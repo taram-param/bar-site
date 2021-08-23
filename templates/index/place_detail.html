@@ -1,0 +1,107 @@
+{% extends 'index/base.html' %}
+{% load static %}
+
+{% block sport %}
+<div class="page-heading">
+    <div class="container">
+        <div class="heading-content">
+            <h1>{{ place.name }}</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="blog-entries">
+    <div class="container">
+        <div class="col-md-7">
+            <div class="blog-posts">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="single-blog-post">
+                            <img src="{% static 'img/logo1.jpg' %}" alt="">
+                            <div class="text-content">
+                                <span></span>
+                                <p>{{ place.description|linebreaks }}</p>
+                                <div class="tags-share">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <ul class="share">
+                                                <li><a href="#"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="side-bar">
+                <div class="latest-gallery">
+                    <div class="sidebar-heding">
+                        <span></span>
+                    </div>
+                    <div class="row">
+                        {% for img in place.placeshots_set.all %}
+                        <div class="col-md-6 col-sm-4 mb-10">
+                            <div class="portfolio-item">
+                                <div class="thumb">
+                                    <a href="{{img.image.url}}" data-lightbox="image-1">
+                                        <div class="image place-box">
+                                            <img src="{{img.image.url}}">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid-portfolio pt-15" id="portfolio"  >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                    <h2><b>ОТЧЕТЫ</b></h2>
+                    <hr>
+                    </div>
+                    {% for collection in place.collection_set.all %}
+                    <div class="col-md-4 col-sm-6">
+                        <div class="portfolio-item">
+                            <div class="thumb">
+                                <a href="{{collection.get_absolute_url}}">
+                                    <div class="image col-box">
+                                        <img src="{{ collection.banner.url }}">
+                                    </div>
+                                    <div class="hover-effect">
+                                        <div class="hover-content">
+                                            <h1>
+                                                {{ collection.place }}<span class="floatr">{{collection.date|date:"j b Y"}}</span>
+                                            </h1>
+                                            <p>
+                                                {{ collection.name }}
+                                                <span>
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>&nbsp{{ collection.views }}
+                                                </span>
+                                                <span>
+                                                    <i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp{{collection.collectionshots_set.all.count}}
+                                                </span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+{% endblock sport %}

@@ -1,0 +1,28 @@
+{% load index_tag %}
+{% load static %}
+<!-- Modal button -->
+<section class="overlay-menu">
+    <div class="container">
+        <div class="row">
+            <div class="main-menu">
+                <ul>
+                    <li>
+                        <a href="{% url 'index' %}">Главная</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'all_collections' %}">Фото</a>
+                    </li>
+                    {% get_places as places %}
+                    {% for place in places %}
+                    <li>
+                        <a href="{{ place.get_absolute_url }}">{{ place.name }}</a>
+                    </li>
+                    {% endfor %}
+                    <li>
+                        <a href="{% url 'about' %}">О нас</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

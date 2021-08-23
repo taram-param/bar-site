@@ -1,0 +1,101 @@
+{% extends 'index/base.html' %}
+{% load index_tag %}
+{% load static %}
+{% block sport %}
+<div id="video-container">
+    <div class="video-overlay"></div>
+    <div class="video-content">
+        <div class="inner">
+            <h1>Добро пожаловать в <b>Бухич</b></h1>
+            <div class="scroll-icon">
+                <a class="scrollTo" data-scrollTo="portfolio" href="#"><img src="{% static 'img/scroll-icon.png' %}"
+                                                                            alt=""></a>
+            </div>
+        </div>
+    </div>
+    <video class="video-video" autoplay="" loop="" muted>
+        <source src="{% static '/cocktail-loop.mp4' %}" type="video/mp4"/>
+    </video>
+</div>
+
+<div class="grid-portfolio nmr-5" id="portfolio">
+    <div class="logos row">
+        <div class="col-xs-5 col-xs-offset-1 logo-img">
+            <a href="{% url 'place_detail' slug='kylie-bar' %}"><img src="{% static 'img/kylie_logo.png' %}"></a>
+        </div>
+        <div class="col-xs-5 logo-img">
+            <a href="{% url 'place_detail' slug='stiflers-mom' %}"><img src="{% static 'img/SM_logo.png' %}"></a>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <h2><b>ПОСЛЕДНИЕ СОБЫТИЯ</b></h2>
+            <hr>
+
+            {% for collection in collection_list %}
+            <div class="col-md-4 col-sm-6">
+                <div class="portfolio-item">
+                    <div class="thumb">
+                        <a href="{{collection.get_absolute_url}}">
+                            <div class="image col-box">
+                                <img src="{{ collection.banner.url }}">
+                            </div>
+                            <div class="hover-effect">
+                                <div class="hover-content">
+                                    <h1>{{ collection.place }}<span
+                                            class="floatr">{{collection.date|date:"j b Y"}}</span></h1>
+                                    <p>
+                                        {{ collection.name }}
+                                        <span><i class="fa fa-eye"
+                                                 aria-hidden="true"></i>&nbsp{{ collection.views }}
+                                        </span>
+                                        <span>
+                                             <i class="fa fa-picture-o"
+                                                aria-hidden="true"></i>&nbsp{{collection.collectionshots_set.all.count}}
+                                        </span>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="load-more-button">
+                    <a href="{% url 'all_collections' %}">Больше Фото</a>
+                </div>
+            </div>
+        </div>
+        {% if video_list %}
+        <div class="row mt-30">
+            <h2><b>ПОСЛЕДНИЕ ВИДЕО</b></h2>
+            <hr>
+            {% for video in video_list %}
+            <div class="col-md-6 col-sm-6">
+                <div class="portfolio-item">
+                    <div class="thumb">
+                        <a href="{{ video.get_absolute_url }}">
+                            <div class="image col-box">
+                                <img src="{{ video.banner.url }}">
+                            </div>
+                            <div class="hover-effect">
+                                <div class="hover-content">
+                                    <h1>{{ video.place }}<em></em></h1>
+                                    <p>{{ video.event }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock sport %}

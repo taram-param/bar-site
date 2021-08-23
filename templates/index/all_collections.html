@@ -1,0 +1,49 @@
+{% extends 'index/base.html' %}
+{% block sport %}
+<div class="grid-portfolio" id="portfolio">
+    <div class="container">
+        {% for date in dates %}
+        <div class="row mt-15">
+            <h2><b>{{date|date:"j E"}}</b></h2>
+            <hr>
+            {% for collection in collection_list %}
+            {% if collection.date == date %}
+            <div class="col-md-4 col-sm-6">
+                <div class="portfolio-item">
+                    <div class="thumb">
+                        <a href="{{collection.get_absolute_url}}">
+                            <div class="image col-box">
+                                <img src="{{ collection.banner.url }}">
+                            </div>
+                            <div class="hover-effect">
+                                <div class="hover-content">
+                                    <h1>{{ collection.place }}<em></em></h1>
+                                    <p>
+                                        {{ collection.name }}
+                                        <span>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>&nbsp{{ collection.views }}
+                                        </span>
+                                        <span>
+                                             <i class="fa fa-picture-o" aria-hidden="true"></i>&nbsp{{ collection.collectionshots_set.all.count }}
+                                         </span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="load-more-button">
+                    <a href="#">Load More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock sport %}

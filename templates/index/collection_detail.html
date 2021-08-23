@@ -1,0 +1,37 @@
+{% extends 'index/base.html' %}
+{% block sport %}
+<div class="grid-portfolio" id="portfolio">
+    <div class="container">
+        <div class="row title">
+
+            <h2 class="capitalize mb-5"><a href="{{ collection.place.get_absolute_url }}"><b>{{ collection.place}}</b></a> / {{collection.name}}</h2>
+            <h2>
+                <span class="date mt-20">
+                    {{ collection.date|date:"j E" }}
+                </span>
+                <span class="download-btn">
+                    <a href="{{ collection.collection_archive.url }}" download>
+                        <i class="fa fa-download fa" aria-hidden="true"></i>
+                    </a>
+                </span>
+            </h2>
+        </div>
+        <div class="row">
+            {% for img in collection.collectionshots_set.all %}
+            <div class="col-md-4 col-sm-4">
+                <div class="portfolio-item">
+                    <div class="thumb">
+                        <a href="{{img.image.url}}" data-lightbox="image-1">
+                        <div class="image box" >
+                            <img src="{{img.image.url}}">
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock sport %}
